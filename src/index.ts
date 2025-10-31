@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/mini';
 import {
     aftermarketQuoteSchema,
     aftermarketTradeSchema,
@@ -69,7 +69,7 @@ export class FMPocketClient {
     /**
      * Executes a generic HTTP call to the FMP API.
      */
-    async #callEndpoint<T>(endpoint: string, schema: z.ZodSchema<T> | null, params = {}) {
+    async #callEndpoint<T extends z.ZodMiniAny>(endpoint: string, schema: z.infer<T> | null, params = {}) {
         const url = this.#buildUrl(endpoint, params);
         const response = await fetch(url, { signal: this.#timeout ? AbortSignal.timeout(this.#timeout) : undefined });
         if (!response.ok) throw new Error(`FMPocket HTTP Error ${response.status} for ${endpoint}`);
@@ -84,7 +84,7 @@ export class FMPocketClient {
     /**
      * Executes a call to an unsupported endpoint.
      */
-    async any(endpoint: string, schema: z.ZodSchema | null = z.any(), params: Record<string, any> = {}) {
+    async any<T extends z.ZodMiniAny>(endpoint: string, schema: z.infer<T> | null = z.any() as z.infer<T>, params: Record<string, any> = {}) {
         return this.#callEndpoint(endpoint, schema, params);
     }
 
@@ -334,7 +334,7 @@ export class FMPocketClient {
     async #indicator({ indicator, ...params }: IndicatorsParams & { indicator: Indicator }) {
         return this.#callEndpoint(
             '/technical-indicators/' + indicator.toLowerCase(),
-            z.array(indicatorSchema.extend({ [indicator]: z.coerce.number() })),
+            z.array(z.extend(indicatorSchema, { [indicator]: z.coerce.number() })),
             {
                 ...params,
                 from: formatDay(params.from),
