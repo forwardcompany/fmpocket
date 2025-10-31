@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { FMPocket } from '../src/index.js';
+import { z } from 'zod/mini';
 
 if (!process.env.VITE_TEST_KEY) throw new Error('Missing key');
 const KEY = process.env.VITE_TEST_KEY;
@@ -109,5 +110,8 @@ describe('test endpoints', () => {
     it('priceChange', async () => {
         let [data] = await fmpocket.priceChange('MSFT');
         expect(data.symbol).toBe('MSFT');
+    });
+    it('any typing test', async () => {
+        let [data] = await fmpocket.any('/type-test', z.array(z.object({ de: z.string() })));
     });
 });
