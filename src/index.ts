@@ -42,7 +42,7 @@ export class FMPocketClient {
      * Internal method to set the API key. Called by the exported setup function.
      */
     setup({ key, baseUrl, version, validate, debug, timeout }: FMPocketOptions) {
-        if (!key) throw new Error('FMP_API key must be provided.');
+        if (!key) throw new Error('FMP API key must be provided.');
         this.#apiKey = key;
         if (baseUrl !== undefined) this.#baseUrl = baseUrl;
         if (version !== undefined) this.#version = version;
@@ -69,11 +69,11 @@ export class FMPocketClient {
     /**
      * Executes a generic HTTP call to the FMP API.
      */
-    async #callEndpoint<T extends z.ZodMiniAny>(endpoint: string, schema: z.infer<T> | null, params = {}) {
+    async #callEndpoint<T extends z.ZodMiniType<any>>(endpoint: string, schema: T | null, params = {}): Promise<z.infer<T>> {
         const url = this.#buildUrl(endpoint, params);
         const response = await fetch(url, { signal: this.#timeout ? AbortSignal.timeout(this.#timeout) : undefined });
         if (!response.ok) throw new Error(`FMPocket HTTP Error ${response.status} for ${endpoint}`);
-        const rawData: T = await response.json();
+        const rawData: z.infer<T> = await response.json();
         if (schema && this.#validate) {
             return schema.parse(rawData);
         } else {
@@ -84,7 +84,11 @@ export class FMPocketClient {
     /**
      * Executes a call to an unsupported endpoint.
      */
-    async any<T extends z.ZodMiniAny>(endpoint: string, schema: z.infer<T> | null = z.any() as z.infer<T>, params: Record<string, any> = {}) {
+    async any<T extends z.ZodMiniAny>(
+        endpoint: string,
+        schema: z.infer<T> | null = z.any() as z.infer<T>,
+        params: Record<string, any> = {},
+    ) {
         return this.#callEndpoint(endpoint, schema, params);
     }
 
