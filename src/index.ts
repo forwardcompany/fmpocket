@@ -84,9 +84,9 @@ export class FMPocketClient {
     /**
      * Executes a call to an unsupported endpoint.
      */
-    async any<T extends z.ZodMiniAny>(
+    async any<T extends z.ZodMiniType<any>>(
         endpoint: string,
-        schema: z.infer<T> | null = z.any() as z.infer<T>,
+        schema: T | null = z.any() as unknown as T,
         params: Record<string, any> = {},
     ) {
         return this.#callEndpoint(endpoint, schema, params);
