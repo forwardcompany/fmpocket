@@ -1,6 +1,6 @@
 {
     "name": "fmpocket",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "description": "A lightweight universal typed client for the Financial Modeling Prep (FMP) API. Gets your financial data perfectly formatted.",
     "author": {
         "name": "Louis Grange",
@@ -27,20 +27,20 @@
     ],
     "scripts": {
         "build": "tsdown",
-        "lint": "oxlint --vitest-plugin",
+        "lint": "oxlint --ignore-pattern 'test/**'",
         "test": "vitest --run",
         "check:format": "oxfmt --check **/*",
         "format": "oxfmt **/*"
     },
     "devDependencies": {
-        "@types/node": "^24.10.1",
-        "oxfmt": "^0.14.0",
-        "oxlint": "^1.29.0",
-        "tsdown": "^0.15.12",
+        "@types/node": "^24.10.13",
+        "oxfmt": "^0.35.0",
+        "oxlint": "^1.50.0",
+        "tsdown": "^0.20.3",
         "typescript": "^5.9.3",
-        "vitest": "^4.0.13"
+        "vitest": "^4.0.18"
     },
     "dependencies": {
-        "zod": "^4.1.13"
+        "zod": "^4.3.6"
     }
 }
