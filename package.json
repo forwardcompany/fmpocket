@@ -1,6 +1,6 @@
 {
     "name": "fmpocket",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "description": "A lightweight universal typed client for the Financial Modeling Prep (FMP) API. Gets your financial data perfectly formatted.",
     "author": {
         "name": "Louis Grange",
@@ -20,8 +20,8 @@
         "isomorphic",
         "universal"
     ],
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "dist/index.mjs",
+    "types": "dist/index.d.mts",
     "files": [
         "dist"
     ],
