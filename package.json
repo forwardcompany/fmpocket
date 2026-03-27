@@ -2,45 +2,45 @@
     "name": "fmpocket",
     "version": "1.2.4",
     "description": "A lightweight universal typed client for the Financial Modeling Prep (FMP) API. Gets your financial data perfectly formatted.",
+    "keywords": [
+        "data",
+        "financial",
+        "fmp",
+        "isomorphic",
+        "stock",
+        "universal"
+    ],
+    "license": "MIT",
     "author": {
         "name": "Louis Grange",
         "url": "https://github.com/l0uisgrange"
     },
-    "license": "MIT",
-    "type": "module",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/forwardcompany/fmpocket.git"
     },
-    "keywords": [
-        "fmp",
-        "financial",
-        "stock",
-        "data",
-        "isomorphic",
-        "universal"
-    ],
-    "main": "dist/index.mjs",
-    "types": "dist/index.d.mts",
     "files": [
         "dist"
     ],
+    "type": "module",
+    "main": "dist/index.mjs",
+    "types": "dist/index.d.mts",
     "scripts": {
         "build": "tsdown",
         "lint": "oxlint --ignore-pattern 'test/**'",
         "test": "vitest --run",
-        "check:format": "oxfmt --check **/*",
-        "format": "oxfmt **/*"
-    },
-    "devDependencies": {
-        "@types/node": "^24.10.13",
-        "oxfmt": "^0.35.0",
-        "oxlint": "^1.50.0",
-        "tsdown": "^0.20.3",
-        "typescript": "^5.9.3",
-        "vitest": "^4.0.18"
+        "check:format": "oxfmt --check",
+        "format": "oxfmt"
     },
     "dependencies": {
         "zod": "^4.3.6"
+    },
+    "devDependencies": {
+        "@types/node": "^24.12.0",
+        "oxfmt": "^0.42.0",
+        "oxlint": "^1.57.0",
+        "tsdown": "^0.21.6",
+        "typescript": "^5.9.3",
+        "vitest": "^4.1.2"
     }
 }
